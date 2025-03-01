@@ -32,6 +32,7 @@ jobs:
      #   run: npm run test
       - name: Verificacion de env
         run: echo "DEPLOY_BASE_URL -> $DEPLOY_BASE_URL"
+      - name: Instala nodejs
         run: npm run build
       - name: Confugrar entorno github
         uses: actions/configure-pages@v5
@@ -42,5 +43,5 @@ jobs:
       - name: Publicar sitio
         id: deployment
         uses: actions/deploy-pages@v4
-        
+
       
