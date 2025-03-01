@@ -1,0 +1,46 @@
+.heroContainer {
+  width: 100%;
+  height: 80vh;
+  @media (min-width: #breaks[tablet]) {
+    height: 90vh;
+  }
+  @media (min-width: #breaks[desktop]) {
+    height: 860px;
+  }
+  img {
+    .fullwidthimg();
+  }
+  div {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    @media (min-width: #breaks[tablet]) {
+        bottom:unset;
+        width: unset;
+        left: unset;
+        transform: translate(-50%, -50%);
+        &.center{
+            left: 50%;
+            top: 50%;
+          
+        }
+        &.q1{
+            left: 25%;
+            top: 25%;
+        }
+        &.q2{
+            top: 25%;
+            left: 75%;
+        }
+        &.q3{
+            top: 75%;
+            left: 25%;
+        }
+        &.q4{
+            left: 75%;
+            top: 75%;
+        }
+    }
+  }
+}

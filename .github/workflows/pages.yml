@@ -1,0 +1,46 @@
+name: prueba subir a github
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+env:
+  DEPLOY_BASE_URL: ${{ vars.DEPLOY_BASE_URL}}
+concurrency: 
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment: 
+      name: github-pages
+      url: ${{ steps.github_pages.outputs.url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+      - name: Instalar nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Instalar dependencias
+        run: npm install
+     # - name: Pruebas unitarias
+     #   run: npm run test
+      - name: Verificacion de env
+        run: echo "DEPLOY_BASE_URL -> $DEPLOY_BASE_URL"
+        run: npm run build
+      - name: Confugrar entorno github
+        uses: actions/configure-pages@v5
+      - name: Upload del sitio compilado
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+      - name: Publicar sitio
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
+      
